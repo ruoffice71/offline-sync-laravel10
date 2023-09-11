@@ -6,6 +6,9 @@
 
         <form id="task-form" action="{{route('tasks.store')}}" method="post" enctype="multipart/form-data">
             <div class="mb-3">
+                <span id="errorMessage" class="error-message"></span>
+            </div>
+            <div class="mb-3">
                 <label for="exampleFormControlInput1" class="form-label">Task Title</label>
                 <input type="text" class="form-control" id="title" name="title">
             </div>

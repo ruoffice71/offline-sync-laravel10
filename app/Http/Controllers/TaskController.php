@@ -35,7 +35,10 @@ class TaskController extends Controller
 
 
 
-        return response()->json($task, 201);
+        return response()->json([
+            'data'=>'success',
+
+        ]);
         // You can set a flag indicating data is synchronized
     }
 }

@@ -24,7 +24,7 @@ function synchronizeData() {
             console.log(pendingData);
             axios.post('/api/tasks/sync', { data: pendingData })
                 .then((response) => {
-                    console.log(response.data);
+                    console.log(response);
                     // Data synchronized successfully, remove it from localStorage
                     localStorage.removeItem('pendingData');
                 })
@@ -42,15 +42,23 @@ document.querySelector('#task-form').addEventListener('submit', (event) => {
         event.preventDefault();
         const title = document.querySelector('#title').value;
         const details = document.querySelector('#details').value;
+        // validation---
+        if (details.length > 255 && title.length) {
+            const errorMessage = document.getElementById('errorMessage');
+            console.log(details.length);
+            errorMessage.textContent = `Character limit exceeded.`;
+            errorMessage.style.color = 'red';
+        }else{
+            const dataToStore = {
+                                    title,
+                                    details
+                                }; // Customize this based on your form fields
+            storeDataLocally(dataToStore);
 
-        const dataToStore = {
-                                title,
-                                details
-                            }; // Customize this based on your form fields
-        storeDataLocally(dataToStore);
+            // Clear the form or perform any other necessary actions
+            document.querySelector('#task-form').reset();
+        }
 
-        // Clear the form or perform any other necessary actions
-        document.querySelector('#task-form').reset();
     }
 });
 
